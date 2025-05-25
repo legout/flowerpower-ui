@@ -1,0 +1,26 @@
+{
+  "name": "flowerpower-ui",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/legout/flowerpower-ui.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/legout/flowerpower-ui/issues"
+  },
+  "homepage": "https://github.com/legout/flowerpower-ui#readme",
+  "description": "",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "daisyui": "^5.0.37",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.7"
+  }
+}

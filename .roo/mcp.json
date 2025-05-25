@@ -4,17 +4,33 @@
       "command": "uvx",
       "args": [
         "--from",
-        "context-portal-mcp", 
+        "context-portal-mcp",
         "conport-mcp",
         "--mode",
         "stdio",
         "--workspace_id",
         "${workspaceFolder}"
+      ],
+      "alwaysAllow": [
+        "log_progress",
+        "get_product_context",
+        "get_active_context",
+        "get_decisions",
+        "get_progress",
+        "get_system_patterns",
+        "get_custom_data"
       ]
     },
     "context7": {
       "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@latest"]
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ],
+      "alwaysAllow": [
+        "resolve-library-id",
+        "get-library-docs"
+      ]
     }
   }
 }

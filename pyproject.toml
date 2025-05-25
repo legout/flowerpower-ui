@@ -6,7 +6,10 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "datastar-py>=0.4.4",
+    "fastapi>=0.115.12",
     "flowerpower>=0.10.6.3",
+    "htmy>=0.7.4",
+    "uvicorn>=0.34.2",
 ]
 
 [dependency-groups]

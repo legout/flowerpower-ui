@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <h1>{{ heading }}</h1>
+    <p>This page is rendered using htmy templating.</p>
+    <p>Datastar value: <span id="datastar-value">Loading...</span></p>
+    <button id="increment-btn" class="btn btn-primary mt-4">Increment Counter</button>
+    <span id="inc-loading" class="loading loading-spinner loading-xs" style="display:none;"></span>
+    <script src="https://cdn.jsdelivr.net/npm/@datastar/client@latest/dist/datastar.min.js"></script>
+    <script>
+      // Connect to Datastar SSE and update value
+      const storeName = "counter";
+      const valueElem = document.getElementById("datastar-value");
+      const ds = new window.DatastarClient("/datastar/sse");
+      ds.subscribe(storeName, (val) => {
+        valueElem.textContent = val;
+      });
+    
+      // Increment button logic
+      const incBtn = document.getElementById("increment-btn");
+      const loadingSpinner = document.getElementById("inc-loading");
+      incBtn.addEventListener("click", async () => {
+        incBtn.disabled = true;
+        loadingSpinner.style.display = "";
+        try {
+          await fetch("/datastar/increment", { method: "POST" });
+          // No need to update valueElem here; SSE will update automatically
+        } catch (e) {
+          alert("Failed to increment counter.");
+        }
+        incBtn.disabled = false;
+        loadingSpinner.style.display = "none";
+      });
+    </script>
+  </body>
+</html>
