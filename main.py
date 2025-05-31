@@ -1,46 +1,11 @@
 from sanic import Sanic
 from sanic.response import json, html
-from flowerpower.fs import BaseStorageOptions, AbstractFileSystem
-from flowerpower.cfg import ProjectConfig
-from flowerpower.pipeline import PipelineManager
-from flowerpower.job_queue import JobQueueManager
-import msgspec
+from flowerpower import FlowerPowerProject
 import htpy as h
 from typing import Any
 
 app = Sanic("FlowerPowerUI")
 
-
-
-class FlowerPowerProject(msgspec.Struct):
-    name: str| None = msgspec.field(default=None)
-    base_dir: str = msgspec.field()
-    storage_options: dict | BaseStorageOptions | None = msgspec.field(
-        default_factory=dict
-    )
-    fs: AbstractFileSystem | None = msgspec.field(default=None)
-    cfg: ProjectConfig | None = msgspec.field(default=None)
-    pipeline_manager: PipelineManager | None = msgspec.field(default=None)
-    job_queue_manager: JobQueueManager | None = msgspec.field(default=None)
-
-    def __post_init__(self):
-        if self.cfg is None:
-            self.cfg = ProjectConfig(
-                base_dir=self.base_dir, storage_options=self.storage_options, fs=self.fs
-            )
-        if self.name is None:
-            self.name = self.cfg.name
-        if self.pipeline_manager is None:
-            self.pipeline_manager = PipelineManager(
-                base_dir=self.base_dir, fs=self.fs, storage_options=self.storage_options
-            )
-        if self.job_queue_manager is None:
-            self.job_queue_manager = JobQueueManager(
-                type=self.cfg.job_queue.type,
-                base_dir=self.base_dir,
-                fs=self.fs,
-                storage_options=self.storage_options,
-            )
 
 
 
