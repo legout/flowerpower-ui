@@ -1,16 +1,6 @@
-from sanic import Sanic
-from sanic.response import json, html
-from flowerpower import FlowerPowerProject
 import htpy as h
-from typing import Any
-
-app = Sanic("FlowerPowerUI")
-
-
-
-
-class FlowerPowerProjectManager:
-    projects: list[FlowerPowerProject] = []
+from typing import Any, Dict
+from flowerpower import FlowerPowerProject
 
 
 def base_layout(title: str, content: Any) -> str:
@@ -59,7 +49,7 @@ def project_card(project: FlowerPowerProject) -> Any:
     }.get(status, "secondary")
 
     # Count pipelines for this project
-    pipelines = get_project_pipelines(project["id"])
+    pipelines = project.pipeline_manager.pipelines
     pipeline_count = len(pipelines)
 
     return h.div(class_="w-full md:w-1/2 lg:w-1/3 mb-3 px-2")[
