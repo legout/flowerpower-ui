@@ -4,76 +4,74 @@ from sanic import Sanic
 
 import msgspec
 import msgspec.yaml
-
+from msgspec import field
 
 class ProjectConfig(msgspec.Struct):
     name: str
     base_dir: str
-    storage_options: dict
+    storage_options: dict = field(default_factory=dict)
 
 
 class ProjectsConfig(msgspec.Struct):
-    projects: list[ProjectConfig]
+    projects: list[ProjectConfig] = field(default_factory=list)
 
 
-class FlowerPowerProjectManager:
-    CONFIG_PATH = "./config/projects_config.yaml"
-    SENSITIVE_KEYS = {
+class FlowerPowerProjectManager(msgspec.Struct):
+    _config_path: str = field(default="./config/projects_config.yaml")
+    _sensitive_keys: set[str] = field(default_factory=lambda: {
         "password",
         "secret",
         "token",
         "api_key",
         "access_key",
         "secret_key",
-    }
-
-    def __init__(self):
-        self.projects = {}
+    })
+    projects: dict[str, FlowerPowerProject] = field(default_factory=dict)
+    _projects_config: list[ProjectConfig] = field(default_factory=list)
 
     def load_configs(self):
         """Load all project configs from YAML file using msgspec."""
         import os
 
-        if not os.path.exists(self.CONFIG_PATH):
+        if not os.path.exists(self._config_path):
             return ProjectsConfig(projects=[])
-        with open(self.CONFIG_PATH, "rb") as f:
-            return msgspec.yaml.decode(f.read(), type=ProjectsConfig)
+        with open(self._config_path, "rb") as f:
+            projects_config = msgspec.yaml.decode(f.read(), type=ProjectsConfig)
+        self._collect_storage_options(projects_config.projects)
+        self._projects_config = projects_config.projects
 
     def save_configs(self, projects_config: ProjectsConfig):
         """Save all project configs to YAML file using msgspec."""
         import os
 
-        os.makedirs(os.path.dirname(self.CONFIG_PATH), exist_ok=True)
-        with open(self.CONFIG_PATH, "wb") as f:
+        os.makedirs(os.path.dirname(self._config_path), exist_ok=True)
+        with open(self._config_path, "wb") as f:
             f.write(msgspec.yaml.encode(projects_config))
 
-    def get_env_or_missing(self, project_name: str, key: str):
+    def _get_env_or_missing(self, project_name: str, key: str):
         """Try to get sensitive value from env, else return None (to prompt)."""
         import os
 
-        env_key = f"{project_name.upper()}_{key.upper()}"
+        env_key = f"FP_{project_name.upper()}_{key.upper()}"
         return os.environ.get(env_key)
 
-    def collect_storage_options(self, project_name: str, storage_options: dict):
+    def _collect_storage_options(self, projects_config: ProjectsConfig):
         """Return storage_options with sensitive values from env or marked as missing."""
-        result = {}
-        missing = []
-        for k, v in storage_options.items():
-            if k in self.SENSITIVE_KEYS:
-                env_val = self.get_env_or_missing(project_name, k)
-                if env_val is not None:
-                    result[k] = env_val
-                else:
-                    result[k] = None
-                    missing.append(k)
-            else:
-                result[k] = v
-        return result, missing
-        self.projects = {}
+        for project_config in projects_config.projects:
+            if not isinstance(project_config, ProjectConfig):
+                continue
+            storage_options = project_config.storage_options or {}
+            for key in storage_options:
+                if key is None and key in self._sensitive_keys:
+                    env_value = self._get_env_or_missing(project_config.name, key)
+                    if env_value is not None:
+                        storage_options[key] = env_value
+  
+            project_config.storage_options = storage_options
 
-    def get_project(self, project_id: str) -> FlowerPowerProject | None:
-        """Get a project by ID"""
-        return self.projects.get(project_id)
+    def get_project(self, project_name: str) -> FlowerPowerProject | None:
+        """Get a project by name"""
+        return self.projects.get(project_name)
 
     def add_project(self, project: FlowerPowerProject):
         """Add a project to the manager"""
