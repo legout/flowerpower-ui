@@ -1,0 +1,21 @@
+2025-06-19 15:57:20,188 - INFO - context_portal_mcp.main - File logging configured to: /Volumes/WD_Blue_1TB/coding/libs/flowerpower-ui/context_portal/logs/conport.log
+2025-06-19 15:57:20,188 - INFO - context_portal_mcp.main - Parsed CLI args: Namespace(host='127.0.0.1', port=8000, workspace_id='/Volumes/WD_Blue_1TB/coding/libs/flowerpower-ui', mode='stdio', log_file='logs/conport.log', log_level='INFO')
+2025-06-19 15:57:20,188 - INFO - context_portal_mcp.main - Starting ConPort in STDIO mode using FastMCP for initial CLI arg workspace_id: /Volumes/WD_Blue_1TB/coding/libs/flowerpower-ui
+2025-06-19 15:57:20,188 - INFO - context_portal_mcp.db.database - Alembic.ini not found. Creating at /Volumes/WD_Blue_1TB/coding/libs/flowerpower-ui/context_portal/alembic.ini
+2025-06-19 15:57:20,188 - INFO - context_portal_mcp.db.database - Alembic env.py not found. Creating at /Volumes/WD_Blue_1TB/coding/libs/flowerpower-ui/context_portal/alembic/env.py
+2025-06-19 15:57:20,189 - INFO - context_portal_mcp.db.database - Initial schema not found. Creating at /Volumes/WD_Blue_1TB/coding/libs/flowerpower-ui/context_portal/alembic/versions/2025_06_17_initial_schema.py
+2025-06-19 15:57:20,189 - INFO - context_portal_mcp.main - STDIO mode: Using effective_workspace_id '/Volumes/WD_Blue_1TB/coding/libs/flowerpower-ui'. Database directory will be created on first actual DB use.
+2025-06-19 15:57:20,219 - INFO - FastMCP.fastmcp.server.server - Starting MCP server 'ConPort' with transport 'stdio'
+2025-06-19 15:57:20,222 - INFO - context_portal_mcp.main - ConPort FastMCP server lifespan starting.
+2025-06-19 15:57:20,236 - INFO - mcp.server.lowlevel.server - Processing request of type ListToolsRequest
+2025-06-19 15:57:20,249 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourcesRequest
+2025-06-19 15:57:20,253 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourceTemplatesRequest
+2025-06-19 15:59:44,745 - INFO - context_portal_mcp.main - File logging configured to: /Volumes/WD_Blue_1TB/coding/libs/flowerpower-ui/context_portal/logs/conport.log
+2025-06-19 15:59:44,746 - INFO - context_portal_mcp.main - Parsed CLI args: Namespace(host='127.0.0.1', port=8000, workspace_id='/Volumes/WD_Blue_1TB/coding/libs/flowerpower-ui', mode='stdio', log_file='logs/conport.log', log_level='INFO')
+2025-06-19 15:59:44,746 - INFO - context_portal_mcp.main - Starting ConPort in STDIO mode using FastMCP for initial CLI arg workspace_id: /Volumes/WD_Blue_1TB/coding/libs/flowerpower-ui
+2025-06-19 15:59:44,746 - INFO - context_portal_mcp.main - STDIO mode: Using effective_workspace_id '/Volumes/WD_Blue_1TB/coding/libs/flowerpower-ui'. Database directory will be created on first actual DB use.
+2025-06-19 15:59:44,749 - INFO - FastMCP.fastmcp.server.server - Starting MCP server 'ConPort' with transport 'stdio'
+2025-06-19 15:59:44,753 - INFO - context_portal_mcp.main - ConPort FastMCP server lifespan starting.
+2025-06-19 15:59:44,823 - INFO - mcp.server.lowlevel.server - Processing request of type ListToolsRequest
+2025-06-19 15:59:44,827 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourcesRequest
+2025-06-19 15:59:44,829 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourceTemplatesRequest
