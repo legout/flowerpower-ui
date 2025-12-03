@@ -1,3 +1,8 @@
+.web
+*.py[cod]
+.states
+assets/external/
+*.db
 # Python-generated files
 __pycache__/
 *.py[oc]
@@ -8,3 +13,9 @@ wheels/
 
 # Virtual environments
 .venv
+
+.web/
+.states/
+__pycache__/
+/app/__pycache__/
+

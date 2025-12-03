@@ -5,11 +5,5 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "datastar-py>=0.4.4",
-    "flowerpower>=0.10.6.3",
-]
-
-[dependency-groups]
-dev = [
-    "ipython>=9.2.0",
+    "reflex>=0.8.21",
 ]
